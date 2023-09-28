@@ -1,6 +1,7 @@
 import styles from "./InvestmentTable.module.css";
 
 const InvestmentTable = (props) => {
+  console.log("props:", props);
   return (
     /* Todo: Show below table conditionally (only once result data is available) */
     /* Show fallback text if no data is available */
@@ -15,13 +16,33 @@ const InvestmentTable = (props) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>YEAR NUMBER</td>
-          <td>TOTAL SAVINGS END OF YEAR</td>
-          <td>INTEREST GAINED IN YEAR</td>
-          <td>TOTAL INTEREST GAINED</td>
-          <td>TOTAL INVESTED CAPITAL</td>
-        </tr>
+        {props.yearlyData.map((yearData) => {
+          return (
+            <tr key={yearData.year}>
+              <td>{yearData.year}</td>
+              <td>
+                {yearData.currentSavings.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </td>
+              <td>
+                {yearData.yearlyInterest.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </td>
+              <td>
+                {yearData.totalInterestGained.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </td>
+              <td>
+                {yearData.totalInvestedCapital.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
